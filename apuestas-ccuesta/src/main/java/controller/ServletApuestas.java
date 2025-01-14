@@ -4,8 +4,10 @@
  */
 package controller;
 
+import Apuestas.Apuestas;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -46,7 +48,29 @@ public class ServletApuestas extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        //empezamos  con la lista de apuestas
+        List<Apuestas> apuestas = (List<Apuestas>) session.getAttibute("apuestas");
+        if (apuestas == null) {
+            apuestas = new ArrayList<>();
+            session.setAttribute("apuestas", apuestas);
+        }
         
+        if ("add".equals(action)) {
+            //para los datos del forulario
+            String nombre = request.getParameter("nombre");
+            String equipos = request.getParameter("equipos");
+            double dinero = Double.parseDouble(request.getParameter("dinero"));
+            String fecha = request.getParameter("fecha");
+            String resultado = request.getParameter("resultado");
+            
+            //creo la nueva instancia para la apuesta
+            Apuestas apuesta = new Apuestas(nombre, equipos, dinero, fecha, resultado);
+            
+            //añadimos la nueva apuesta a la lista de apuestas
+            apuestas.add(apuesta);
+            
+            //luego hago el redirigir para ir las apuestas
+        }
     }
 
     /**
