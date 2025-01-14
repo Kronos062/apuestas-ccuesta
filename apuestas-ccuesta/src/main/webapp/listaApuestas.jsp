@@ -11,11 +11,10 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>Apuestas Anteriores</h1>
+        <h1>Listado de apuestas</h1>
 
         <%
             //cogemos la sesión y la lista de apuestas de ella

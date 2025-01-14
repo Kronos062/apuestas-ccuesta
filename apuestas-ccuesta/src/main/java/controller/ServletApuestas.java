@@ -88,10 +88,10 @@ public class ServletApuestas extends HttpServlet {
             //hacemos lo mismo para el modificar
             int index = Integer.parseInt(request.getParameter("index"));
             if (index >= 0 && index < apuestas.size()) {
-                // Obtener los nuevos valores
+                //cogemos los nuevos valores
                 String nombre = request.getParameter("nombre");
                 String equipos = request.getParameter("equipos");
-                double dinero = Double.parseDouble(request.getParameter("dienro"));
+                double dinero = Double.parseDouble(request.getParameter("dinero"));
                 String fecha = request.getParameter("fecha");
                 String resultado = request.getParameter("resultado");
 
@@ -112,9 +112,4 @@ public class ServletApuestas extends HttpServlet {
      *
      * @return a String containing servlet description
      */
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
-
 }

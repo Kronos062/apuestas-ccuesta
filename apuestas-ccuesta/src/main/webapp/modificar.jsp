@@ -6,11 +6,10 @@
 
 <%@page import="java.util.List"%>
 <%@page import="Apuestas.Apuestas"%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
     </head>
     <body>
@@ -31,7 +30,7 @@
             Equipos: <input type="text" name="equipos" value="<%= apuesta.getEquipos()%>" required><br>
             Resultado: <input type="text" name="resultado" value="<%= apuesta.getResultado()%>" required><br>
             Fecha: <input type="date" name="fecha" value="<%= apuesta.getFecha()%>" required><br> 
-            Dinero: <input type="number" name="cantidad" value="<%= apuesta.getDinero()%>" required><br>
+            Dinero: <input type="numbre" name="dinero" value="<%= apuesta.getDinero()%>" required><br>
             <input type="submit" value="Modificar">
         </form>
         <%
