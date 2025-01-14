@@ -93,7 +93,6 @@ public class ServletApuestas extends HttpServlet {
                 String equipos = request.getParameter("equipos");
                 double dinero = Double.parseDouble(request.getParameter("dienro"));
                 String fecha = request.getParameter("fecha");
-                String resultado = request.getParameter("resultado");
 
                 // modificamos la apuesta con esto
                 Apuestas apuesta = apuestas.get(index);
@@ -101,7 +100,6 @@ public class ServletApuestas extends HttpServlet {
                 apuesta.setEquipos(equipos);
                 apuesta.setDinero(dinero);
                 apuesta.setFecha(fecha);
-                apuesta.setResultado(resultado);
             }
             response.sendRedirect(request.getContextPath() + "/listaApuestas.jsp");
         }

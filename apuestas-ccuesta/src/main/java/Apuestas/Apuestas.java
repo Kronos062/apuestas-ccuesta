@@ -14,14 +14,12 @@ public class Apuestas {
     private String equipos;
     private double dinero;
     private String fecha;
-    private String resultado;
 
     public Apuestas(String nombre, String equipos, double dinero, String fecha, String resultado) {
         this.nombre = nombre;
         this.equipos = equipos;
         this.dinero = dinero;
         this.fecha = fecha;
-        this.resultado = resultado;
     }
 
     public void setNombre(String nombre) {
@@ -40,10 +38,6 @@ public class Apuestas {
         this.fecha = fecha;
     }
 
-    public void setResultado(String resultado) {
-        this.resultado = resultado;
-    }
-
     public String getNombre() {
         return nombre;
     }
@@ -59,9 +53,4 @@ public class Apuestas {
     public String getFecha() {
         return fecha;
     }
-
-    public String getResultado() {
-        return resultado;
-    }
-    
 }
