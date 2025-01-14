@@ -7,12 +7,14 @@ package controller;
 import Apuestas.Apuestas;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -20,6 +22,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "ServletApuestas", urlPatterns = {"/ServletApuestas"})
 public class ServletApuestas extends HttpServlet {
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -48,13 +51,16 @@ public class ServletApuestas extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        //empezamos  con la lista de apuestas
-        List<Apuestas> apuestas = (List<Apuestas>) session.getAttibute("apuestas");
+        String action = request.getParameter("action");
+        //obtenemos la sesion acutal
+        HttpSession session = request.getSession();
+//empezamos  con la lista de apuestas
+        List<Apuestas> apuestas = (List<Apuestas>) session.getAttribute("apuestas");
         if (apuestas == null) {
             apuestas = new ArrayList<>();
             session.setAttribute("apuestas", apuestas);
         }
-        
+
         if ("add".equals(action)) {
             //para los datos del forulario
             String nombre = request.getParameter("nombre");
@@ -62,14 +68,42 @@ public class ServletApuestas extends HttpServlet {
             double dinero = Double.parseDouble(request.getParameter("dinero"));
             String fecha = request.getParameter("fecha");
             String resultado = request.getParameter("resultado");
-            
+
             //creo la nueva instancia para la apuesta
             Apuestas apuesta = new Apuestas(nombre, equipos, dinero, fecha, resultado);
-            
+
             //añadimos la nueva apuesta a la lista de apuestas
             apuestas.add(apuesta);
-            
+
             //luego hago el redirigir para ir las apuestas
+            response.sendRedirect(request.getContextPath() + "/listaApuestas.jsp");
+        } else if ("delete".equals(action)) {
+            //cogemos la apuesta a eliminar
+            int index = Integer.parseInt(request.getParameter("index"));
+            if (index >= 0 && index < apuestas.size()) {
+                apuestas.remove(index);
+            }
+            response.sendRedirect(request.getContextPath() + "/listaApuestas.jsp");
+        } else if ("modify".equals(action)) {
+            //hacemos lo mismo para el modificar
+            int index = Integer.parseInt(request.getParameter("index"));
+            if (index >= 0 && index < apuestas.size()) {
+                // Obtener los nuevos valores
+                String nombre = request.getParameter("nombre");
+                String equipos = request.getParameter("equipos");
+                double dinero = Double.parseDouble(request.getParameter("dienro"));
+                String fecha = request.getParameter("fecha");
+                String resultado = request.getParameter("resultado");
+
+                // modificamos la apuesta con esto
+                Apuestas apuesta = apuestas.get(index);
+                apuesta.setNombre(nombre);
+                apuesta.setEquipos(equipos);
+                apuesta.setDinero(dinero);
+                apuesta.setFecha(fecha);
+                apuesta.setResultado(resultado);
+            }
+            response.sendRedirect(request.getContextPath() + "/listaApuestas.jsp");
         }
     }
 
