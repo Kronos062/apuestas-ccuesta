@@ -26,7 +26,6 @@
         %>
         <!-- La listamos con esto-->
         <p>Nombre: <%= apuesta.getNombre()%></p>
-        <p>equipos: <%= apuesta.getEquipos()%></p>
         <p>Equipos: <%= apuesta.getEquipos()%></p>
         <p>Resultado: <%= apuesta.getResultado()%></p> 
         <p>Fecha: <%= apuesta.getFecha()%></p>

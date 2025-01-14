@@ -29,6 +29,7 @@
             <input type="hidden" name="index" value="<%= index%>">
             Nombre: <input type="text" name="nombre" value="<%= apuesta.getNombre()%>" required><br>
             Equipos: <input type="text" name="equipos" value="<%= apuesta.getEquipos()%>" required><br>
+            Resultado: <input type="text" name="resultado" value="<%= apuesta.getResultado()%>" required><br>
             Fecha: <input type="date" name="fecha" value="<%= apuesta.getFecha()%>" required><br> 
             Dinero: <input type="number" name="cantidad" value="<%= apuesta.getDinero()%>" required><br>
             <input type="submit" value="Modificar">

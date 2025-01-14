@@ -24,7 +24,7 @@
         </form>
         <br>
         <hr>
-        <a href="skldfjghsdlgjf.jsp">Detalles de Apuestas</a>
+        <a href="listaApuestas.jsp">Detalles de Apuestas</a>
         <hr>
     </body>
 </html>
