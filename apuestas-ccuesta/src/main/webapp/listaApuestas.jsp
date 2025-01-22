@@ -4,6 +4,7 @@
     Author     : ubuntu
 --%>
 
+<%@page import="java.util.stream.Collectors"%>
 <%@page import="java.util.List"%>
 <%@page import="java.util.List"%>
 <%@page import="Apuestas.Apuestas"%>
@@ -15,13 +16,29 @@
     </head>
     <body>
         <h1>Listado de apuestas</h1>
-
+        <!--creo el filtro por nombre-->
+        <form action="listaApuestas.jsp" method="get">
+            <input type="text" name="filtroNombre" placeholder="Filtrar por nombre">
+            <input type="submit" value="Filtrar">
+        </form>
         <%
             //cogemos la sesión y la lista de apuestas de ella
             List<Apuestas> apuestas = (List<Apuestas>) session.getAttribute("apuestas");
+            String filtroNombre = request.getParameter("filtroNombre");
+
             if (apuestas != null && !apuestas.isEmpty()) {
-                for (int i = 0; i < apuestas.size(); i++) {
-                    Apuestas apuesta = apuestas.get(i);
+                // Aplicamos el filtro si existe
+                if (filtroNombre != null && !filtroNombre.isEmpty()) {
+                    apuestas = apuestas.stream()
+                            .filter(a -> a.getNombre().toLowerCase().contains(filtroNombre.toLowerCase()))
+                            .collect(Collectors.toList());
+                }
+
+                if (apuestas.isEmpty()) {
+                    out.println("<p>No se encontraron apuestas con el nombre especificado.</p>");
+                } else {
+                    for (int i = 0; i < apuestas.size(); i++) {
+                        Apuestas apuesta = apuestas.get(i);
         %>
         <!-- La listamos con esto-->
         <p>Nombre: <%= apuesta.getNombre()%></p>
@@ -35,18 +52,20 @@
             <input type="hidden" name="index" value="<%= i%>">
             <input type="submit" value="Eliminar">
         </form>
-            <!-- Te llevara al form de modificar-->
+        <!-- Te llevara al form de modificar-->
         <form action="modificar.jsp" method="get" style="display:inline;">
             <input type="hidden" name="index" value="<%= i%>">
             <input type="submit" value="Modificar">
         </form>
         <hr>
         <%
+                    }
+                }
             }
-        } else {
-        %>
-        <p>No hay apuestas anteriores.</p>
-        <%
+            if (filtroNombre != null && !filtroNombre.isEmpty()) {
+                out.println("<p>No se encontraron apuestas con el nombre especificado.</p>");
+            } else {
+                out.println("<p>No hay apuestas anteriores.</p>");
             }
         %>
         <form action="formulario.jsp" method="get">
