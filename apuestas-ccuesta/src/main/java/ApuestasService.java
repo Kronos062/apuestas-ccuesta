@@ -1,6 +1,7 @@
+
+import Apuestas.Apuestas;
 import java.util.ArrayList;
 import java.util.List;
-import Apuestas.Apuestas;
 
 /**
  *
@@ -54,5 +55,22 @@ public class ApuestasService {
     //obtener el número total de apuestas
     public int getApuestasCount() {
         return apuestas.size();
+    }
+
+    //metodo para filtrar apuestas por nombre
+    public List<Apuestas> filtrarApuestas(String filtro) {
+        List<Apuestas> filtradas = new ArrayList<>();
+        
+        if(filtro == null || filtro.isEmpty()) {
+            return new ArrayList<>(apuestas);
+        }
+        
+        String filtroLower = filtro.toLowerCase();
+        for(Apuestas a : apuestas) {
+            if(a.getNombre().toLowerCase().contains(filtroLower)) {
+                filtradas.add(a);
+            }
+        }
+        return filtradas;
     }
 }
