@@ -4,6 +4,7 @@
     Author     : ubuntu
 --%>
 
+<%@page import="java.util.ArrayList"%>
 <%@page import="java.util.stream.Collectors"%>
 <%@page import="java.util.List"%>
 <%@page import="java.util.List"%>
@@ -28,10 +29,20 @@
 
             if (apuestas != null && !apuestas.isEmpty()) {
                 // Aplicamos el filtro si existe
+                //if (filtroNombre != null && !filtroNombre.isEmpty()) {
+                //    apuestas = apuestas.stream()
+                //            .filter(a -> a.getNombre().toLowerCase().contains(filtroNombre.toLowerCase()))
+                //            .collect(Collectors.toList());
+                //}
                 if (filtroNombre != null && !filtroNombre.isEmpty()) {
-                    apuestas = apuestas.stream()
-                            .filter(a -> a.getNombre().toLowerCase().contains(filtroNombre.toLowerCase()))
-                            .collect(Collectors.toList());
+                    List<Apuestas> apuestasFiltradas = new ArrayList<>();
+                    String filtroLower = filtroNombre.toLowerCase();
+                    for (int i = 0; i < apuestas.size(); i++) {
+                        if (apuestas.get(i).getNombre().toLowerCase().contains(filtroLower)) {
+                            apuestasFiltradas.add(apuestas.get(i));
+                        }
+                    }
+                    apuestas = apuestasFiltradas;
                 }
 
                 if (apuestas.isEmpty()) {
